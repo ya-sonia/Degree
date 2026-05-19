@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIT Srinagar – Degree Certificate</title>
+<style>
+
+/* ═══════════════════════════════════════════
+   FONT FACES — files must be in ./fonts/
+   ═══════════════════════════════════════════ */
+@font-face {
+  font-family: 'Mangal';
+  src: url('fonts/Mangal.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Mangal';
+  src: url('fonts/MangalBold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Mangal';
+  src: url('fonts/Mangal.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'EdwardianScript';
+  src: url('fonts/ITCEDSCR.TTF') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Vivaldi';
+  src: url('fonts/VIVALDII.TTF') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'MsHimalaya';
+  src: url('fonts/himalaya.ttf') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'MsHimalaya';
+  src: url('fonts/himalaya.ttf') format('truetype');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'ArabicTypesetting';
+  src: url('fonts/ARABTYPE.TTF') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'ArabicTypesetting';
+  src: url('fonts/ARABTYPE.TTF') format('truetype');
+  font-weight: 700;
+}
+
+/* ═══════════════════════════════════════════
+   COLOUR PALETTE (from official spec)
+   ═══════════════════════════════════════════ */
+:root {
+  --c-institute:  #1F4E79;
+  --c-degree:     #203864;
+  --c-candidate:  #385723;
+  --c-cgpa:       #C00000;
+  --c-body:       #000000;
+  --c-white:      #ffffff;
+}
+
+/* ═══════════════════════════════════════════
+   PAGE SHELL
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #b0b8c4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 20px;
+  gap: 22px;
+  min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════════
+   CERTIFICATE  — A4 landscape: 297 × 210 mm
+   NO BORDER — matches the actual certificate
+   ═══════════════════════════════════════════ */
+.certificate {
+  width:  297mm;
+  height: 210mm;
+  background: var(--c-white);
+  box-shadow: 0 8px 48px rgba(0,0,0,0.28);
+  display: grid;
+  grid-template-rows: auto auto 1fr auto auto;
+  grid-template-columns: 1fr;
+  padding: 4mm 14mm 4mm 14mm;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ──────────────────────────────────────────
+   ROW 1 — Top bar: logo | hindi headers | reg+photo
+   ────────────────────────────────────────── */
+.top-bar {
+  display: grid;
+  grid-template-columns: 28mm 1fr 30mm;
+  align-items: start;
+  column-gap: 4mm;
+  margin-bottom: 2mm;
+}
+
+.logo-wrap {
+  width: 36mm;
+  height: 36mm;
+}
+.logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.logo-placeholder {
+  width: 28mm; height: 28mm;
+  border: 1.5px solid var(--c-institute);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  color: var(--c-institute);
+  font-size: 7px; font-weight: 700;
+  text-align: center; line-height: 1.5;
+}
+
+/* Centre: Hindi header block (spec items 1–6) */
+.hindi-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* 1 — Bold, Mangal (Body), 22pt — institute blue */
+.hi-institute {
+  font-family: 'Mangal', sans-serif;
+  font-weight: 550;
+  font-size: 22pt;
+  color: var(--c-institute);
+  line-height: 1.2;
+}
+/* 2 — Italic, Mangal (Body), 18pt */
+.hi-senate {
+  font-family: 'Mangal', sans-serif;
+  font-weight: 10;
+  font-style: italic;
+  font-size: 18pt;
+  color: var(--c-body);
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+/* 4 — Bold, 14pt Mangal — branch */
+.hi-branch {
+  font-family: 'Mangal', sans-serif;
+  font-weight: 600;
+  font-size: 14pt;
+  color: var(--c-body);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+/* 6 — Bold, Mangal (Body), 18pt — candidate green */
+.hi-candidate {
+  font-family: 'Mangal', sans-serif;
+  font-weight: 700;
+  font-size: 18pt;
+  color: var(--c-candidate);
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+/* 3 — Bold, Mangal (Body), 18pt — degree navy */
+.hi-degree {
+  font-family: 'Mangal', sans-serif;
+  /* font-weight: 700; */
+  font-weight: bold;
+  font-size: 18pt;
+  color: var(--c-degree);
+  line-height: 1.25;
+  margin-bottom: 5px;
+}
+/* 5 — "की उपाधि" / "प्रदान करता है।" */
+.hi-udhadhi {
+  font-family: 'Mangal', sans-serif;
+  font-weight: 200;
+  font-size: 17pt;
+  color: var(--c-body);
+  line-height: 1.3;
+}
+
+/* Right: reg no + photo */
+.top-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2.5mm;
+}
+.reg-no {
+  font-family: 'MsHimalaya', serif;
+  font-size: 18pt;
+  color: var(--c-body);
+  white-space: nowrap;
+}
+.photo-box {
+  width: 30mm;
+  height: 32mm;
+  margin-top: 20px;
+  margin-right: 14em;
+  border: 1px solid #999;
+  background: #f7f7f7;
+  display: flex; align-items: center; justify-content: center;
+  font-family: sans-serif; font-size: 7pt; color: #bbb;
+}
+
+/* ──────────────────────────────────────────
+   ROW 2 — Hindi body paragraph
+   7 — Mangal (Body), 13pt, 1.5 line spacing
+   ────────────────────────────────────────── */
+.hindi-body {
+  font-family: 'Mangal', sans-serif;
+  font-weight: 200;
+  font-size: 13pt;
+  color: var(--c-body);
+  line-height: 1.5;
+  text-align: justify;
+}
+
+/* ──────────────────────────────────────────
+   ROW 3 — 1fr spacer (the visual gap between sections)
+   ────────────────────────────────────────── */
+
+/* ──────────────────────────────────────────
+   ROW 4 — English section
+   ────────────────────────────────────────── */
+.english-section {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* 8 — Edwardian Script ITC, 36pt — blue */
+.en-institute {
+  font-family: 'EdwardianScript', cursive;
+  font-size: 36pt;
+  color: var(--c-institute);
+  line-height: 1.1;
+  font-weight: 700;
+}
+/* 9 — Vivaldi, 22pt */
+.en-senate {
+  font-family: 'Vivaldi', cursive;
+  font-size: 22pt;
+  color: var(--c-body);
+  /* line-height: 1.2; */
+}
+/* 10 — Bold Vivaldi, 28pt — degree navy */
+.en-degree {
+  font-family: 'Vivaldi', cursive;
+  font-weight: 700;
+  font-size: 28pt;
+  color: var(--c-degree);
+  /* line-height: 1.15; */
+}
+/* 11 — Bold Microsoft Himalaya, 22pt */
+.en-branch {
+  font-family: 'MsHimalaya', serif;
+  font-weight: 950;
+  font-size: 22pt;
+  font-weight: bold;
+  color: var(--c-body);
+  /* line-height: 1.2; */
+}
+/* 12 — Microsoft Himalaya, 22pt */
+.en-on {
+  font-family: 'MsHimalaya', serif;
+  font-size: 22pt;
+  color: var(--c-body);
+  /* line-height: 1.2; */
+}
+/* 13 — Bold Microsoft Himalaya, 22pt — green */
+.en-candidate {
+  font-family: 'MsHimalaya', serif;
+  font-weight: 700;
+  font-size: 22pt;
+  color: var(--c-candidate);
+  /* line-height: 1.2; */
+}
+/* 14 — Microsoft Himalaya, 20pt */
+.en-body {
+  font-family: 'MsHimalaya', serif;
+  font-size: 20pt;
+  color: var(--c-body);
+  text-align: justify;
+  /* line-heig  ht: 1.55; */
+  margin-top: 1.5mm;
+  width: 100%;
+}
+.en-body .cgpa-val,
+.en-body .scale-val { color: var(--c-cgpa); }
+
+/* ──────────────────────────────────────────
+   ROW 5 — Footer
+   15 — Bold Arabic Typesetting, 20pt — blue
+   ────────────────────────────────────────── */
+.cert-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 2mm;
+}
+.footer-dean,
+.footer-chair {
+  font-family: 'ArabicTypesetting', serif;
+  font-weight: 800;
+  font-size: 20pt;
+  color: var(--c-institute);
+  margin-right: 160px;
+}
+.qr-box {
+  width: 16mm; height: 16mm;
+  background: #eee;
+  border: 0.5px solid #ccc;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 5pt; color: #aaa; font-family: sans-serif;
+}
+
+/* ═══════════════════════════════════════════
+   PRINT
+   ═══════════════════════════════════════════ */
+@media print {
+  body { background: white; padding: 0; margin: 0; }
+  .editor-panel { display: none !important; }
+  .certificate {
+    box-shadow: none;
+    width: 297mm;
+    height: 210mm;
+    page-break-after: always;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   EDITOR PANEL
+   ═══════════════════════════════════════════ */
+.editor-panel {
+  width: 297mm;
+  max-width: 100%;
+  background: #1e293b;
+  border-radius: 14px;
+  padding: 20px 26px 18px;
+  color: #e2e8f0;
+}
+.editor-panel h2 {
+  font-family: sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.editor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+  gap: 11px 18px;
+}
+.fg { display: flex; flex-direction: column; gap: 4px; }
+.fg label {
+  font-size: 9px; font-weight: 600;
+  color: #94a3b8; text-transform: uppercase; letter-spacing: 0.7px;
+  font-family: sans-serif;
+}
+.fg input, .fg select {
+  background: #0f172a; border: 1px solid #334155;
+  border-radius: 6px; color: #f1f5f9;
+  font-size: 11px; padding: 5px 9px;
+  outline: none; transition: border-color 0.15s;
+  font-family: sans-serif;
+}
+.fg input:focus, .fg select:focus { border-color: #60a5fa; }
+.fg select option { background: #0f172a; }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.btn {
+  padding: 7px 18px; border-radius: 7px; border: none;
+  cursor: pointer; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.4px; font-family: sans-serif;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.btn:active { transform: scale(0.97); }
+.btn-blue  { background: #2563eb; color: #fff; }
+.btn-green { background: #16a34a; color: #fff; }
+.btn-grey  { background: #334155; color: #e2e8f0; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     CERTIFICATE
+════════════════════════════════ -->
+<div class="certificate" id="cert">
+
+  <!-- ROW 1 — Top bar -->
+  <div class="top-bar">
+
+    <!-- Left: Logo -->
+    <div class="logo-wrap">
+      <img src="assets/nit_logo.png" alt="NIT Srinagar"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="logo-placeholder" style="display:none">NIT<br>SGR</div>
+    </div>
+
+    <!-- Centre: Hindi headers -->
+    <div class="hindi-header">
+      <span class="hi-institute">राष्ट्रीय प्रौद्योगिकी संस्थान श्रीनगर</span>
+      <span class="hi-senate">सेनेट &nbsp;की &nbsp;<em>अनुशंसा</em>&nbsp; पर</span>
+      <span class="hi-branch" id="d_hi_branch">सूचना प्रौद्योगिकी अभियांत्रिकी में</span>
+      <span class="hi-candidate"><span id="d_hi_name">तौहीद तारिया</span>&nbsp; को</span>
+      <span class="hi-degree" id="d_hi_degree">प्रौद्योगिकी में स्नातक</span>
+      <span class="hi-udhadhi">की उपाधि</span>
+      <span class="hi-udhadhi">प्रदान करता है।</span>
+    </div>
+
+    <!-- Right: Registration + Photo -->
+    <div class="top-right">
+      <div class="reg-no">Registration No: <span id="d_reg">2020NITSGR033</span></div>
+      <div class="photo-box">Photo</div>
+    </div>
+
+  </div>
+
+  <!-- ROW 2 — Hindi body -->
+  <div class="hindi-body">जिसने सेनेट नियमावली के अंतर्गत यह डिग्री प्राप्त करने के लिए निर्धारित अध्ययन पाठ्यक्रम को <span id="d_hi_year">जुलाई 2020</span> में, नामांकन संख्या <span id="d_hi_enroll">ITE/22/16</span> के तहत, सफलतापूर्वक पूरा किया है। छात्र ने 10 के पैमाने पर <span id="d_hi_cgpa">8.88</span> का संचयी ग्रेड प्वाइंट एवरेज (CGPA) प्राप्त किया है। यह डिग्री 7 जुलाई 2025 को, श्रीनगर में संस्थान की मोहर के तहत, भारत गणराज्य में दी जाती है।</div>
+
+  <!-- ROW 3 — Spacer (1fr) -->
+  <div></div>
+
+  <!-- ROW 4 — English section -->
+  <div class="english-section">
+    <span class="en-institute">National Institute of Technology Srinagar</span>
+    <span class="en-senate">Upon the recommendation of the senate hereby confers the degree of</span>
+    <span class="en-degree" id="d_en_degree">Bachelor of Technology</span>
+    <span class="en-branch" id="d_en_branch">in Information Technology Engineering</span>
+    <span class="en-on">on</span>
+    <span class="en-candidate" id="d_en_name">Janibul Bashir</span>
+    <p class="en-body">who has successfully completed the course of study as prescribed under Senate regulations for the award of this degree in <span id="d_en_year">July 2020</span> under enrolment No. <span id="d_en_enroll">ITE/22/16</span>. The student has achieved a Cumulative Grade Point Average (CGPA) of <span class="cgpa-val" id="d_cgpa">8.88</span> on a scale of <span class="scale-val">10</span>.<br>&emsp;The degree is given on this day, the <span id="d_date">Seventh day of July of the year Two Thousand Twenty-Five</span>, under the seal of the Institute at Srinagar in the Republic of India.</p>
+  </div>
+
+  <!-- ROW 5 — Footer -->
+  <div class="cert-footer">
+    <div class="qr-box">QR</div>
+    <div class="footer-dean">Dean Academic Affairs</div>
+    <div class="footer-chair">Chairman, Senate</div>
+  </div>
+
+</div>
+
+<script>
+const MONTH_HI = {
+  january:'जनवरी', february:'फरवरी', march:'मार्च', april:'अप्रैल',
+  may:'मई', june:'जून', july:'जुलाई', august:'अगस्त',
+  september:'सितंबर', october:'अक्टूबर', november:'नवंबर', december:'दिसंबर'
+};
+
+function toHindi(y) {
+  const p = y.trim().split(/\s+/);
+  return p.length === 2 ? ((MONTH_HI[p[0].toLowerCase()] || p[0]) + ' ' + p[1]) : y;
+}
+
+function $(id) { return document.getElementById(id); }
+function s(id, v) { const el = $(id); if (el) el.textContent = v; }
+
+function update() {
+  const g = id => $(id).value.trim();
+  const enName   = g('f_en_name'),  hiName   = g('f_hi_name');
+  const enDegree = g('f_en_degree'), hiDegree = g('f_hi_degree');
+  const enBranch = g('f_en_branch'), hiBranch = g('f_hi_branch');
+  const spec     = g('f_spec'),     cgpa     = g('f_cgpa');
+  const enroll   = g('f_enroll'),   reg      = g('f_reg');
+  const year     = g('f_year'),     date     = g('f_date');
+
+  s('d_hi_name',   hiName);
+  s('d_hi_degree', hiDegree);
+  s('d_hi_branch', hiBranch + ' में');
+  s('d_hi_year',   toHindi(year));
+  s('d_hi_enroll', enroll);
+  s('d_hi_cgpa',   cgpa);
+
+  s('d_en_name',   enName);
+  s('d_en_degree', enDegree);
+  s('d_en_branch', spec ? `in ${enBranch} with a specialization in ${spec}` : `in ${enBranch}`);
+  s('d_en_year',   year);
+  s('d_en_enroll', enroll);
+  s('d_cgpa',      cgpa);
+  s('d_date',      date);
+  s('d_reg',       reg);
+}
+
+const D = {
+  f_en_name:'Janibul Bashir', f_hi_name:'जानिबुल बशीर',
+  f_en_degree:'Bachelor of Technology', f_hi_degree:'प्रौद्योगिकी में स्नातक',
+  f_en_branch:'Information Technology Engineering',
+  f_hi_branch:'सूचना प्रौद्योगिकी अभियांत्रिकी',
+  f_spec:'', f_cgpa:'8.88', f_enroll:'ITE/22/16', f_reg:'2020NITSGR033',
+  f_year:'July 2020',
+  f_date:'Seventh day of July of the year Two Thousand Twenty-Five',
+};
+
+function reset() {
+  for (const [id, val] of Object.entries(D)) { const el=$(id); if(el) el.value=val; }
+  update();
+}
+
+update();
+</script>
+</body>
+</html>
